@@ -5,7 +5,8 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     // Start is called before the first frame update
-    const float speed = 0.1f;
+    [SerializeField, Header("移動速度")]
+    private float speed = 0.1f;
 
     void Start()
     {
@@ -20,13 +21,19 @@ public class Move : MonoBehaviour
 
     void move()
     {
+        Vector2 current_pos = transform.position;
+
         if(Input.GetKey(KeyCode.W)){
-            Vector2 pos = new Vector2(transform.position.x, transform.position.y + speed);
-            transform.position = pos;
+            current_pos.y += speed;
+        }else if(Input.GetKey(KeyCode.S)){
+            current_pos.y -= speed;
+        }else if(Input.GetKey(KeyCode.A)){
+            current_pos.x -= speed;
         }else if(Input.GetKey(KeyCode.D)){
-            Vector2 pos = new Vector2(transform.position.x, transform.position.y - speed);
-            transform.position = pos;
+            current_pos.x += speed;
         }
+
+        transform.position = current_pos;
     }
 }
 
